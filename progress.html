@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sadhana Progress</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f0f9ff, #e0f7fa);
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(90deg, #00bfa6, #0078ff);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 450px;
+      margin: 25px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 250px !important;
+      margin-top: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0078ff;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #0078ff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>📊 Sadhana Progress</header>
+
+<div class="container">
+  <h2>Overall Summary</h2>
+  <div class="stats">
+    <p>🪔 Total Rounds: <span id="totalRounds">0</span></p>
+    <p>📖 Total Reading: <span id="totalReading">0</span> min</p>
+  </div>
+
+  <canvas id="roundsChart"></canvas>
+  <canvas id="readingChart"></canvas>
+
+  <a class="back" href="index.html">← Back to Home</a>
+</div>
+
+<script>
+function loadProgress() {
+  const logs = JSON.parse(localStorage.getItem("sadhanaLogs")) || [];
+  const dates = logs.map(l => l.date);
+  const rounds = logs.map(l => parseInt(l.rounds) || 0);
+  const reading = logs.map(l => parseInt(l.reading) || 0);
+
+  const totalRounds = rounds.reduce((a, b) => a + b, 0);
+  const totalReading = reading.reduce((a, b) => a + b, 0);
+
+  document.getElementById("totalRounds").textContent = totalRounds;
+  document.getElementById("totalReading").textContent = totalReading;
+
+  // Bar chart for rounds
+  new Chart(document.getElementById("roundsChart"), {
+    type: "bar",
+    data: {
+      labels: dates,
+      datasets: [{
+        label: "Rounds Chanted",
+        data: rounds,
+        backgroundColor: "#0078ffaa",
+        borderColor: "#0078ff",
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+  // Line chart for reading
+  new Chart(document.getElementById("readingChart"), {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [{
+        label: "Reading Time (min)",
+        data: reading,
+        fill: true,
+        borderColor: "#00bfa6",
+        backgroundColor: "#00bfa622",
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+}
+
+loadProgress();
+</script>
+
+</body>
+</html>
