@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sadhana History | Your Daily Journey</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fff9f0, #f7ede2);
+      color: #2c2c2c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #6a3f20;
+    }
+
+    header p {
+      color: #7c6a5c;
+      font-size: 1rem;
+    }
+
+    .entries {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .entry {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .entry h3 {
+      color: #5b3b1b;
+      margin-bottom: 8px;
+    }
+
+    .entry p {
+      font-size: 0.95rem;
+      color: #4d3922;
+      margin-bottom: 5px;
+    }
+
+    .no-entry {
+      text-align: center;
+      color: #7c6a5c;
+      font-size: 1rem;
+      margin-top: 50px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background: #a16b34;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #864f1c;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #806d5d;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📜 Sadhana History</h1>
+    <p>Review your past spiritual efforts and progress over time.</p>
+  </header>
+
+  <div class="entries" id="entries"></div>
+
+  <a href="index.html" class="btn">⬅ Back to Today’s Sadhana</a>
+
+  <footer>
+    © 2025 Sadhana Tracker by Anni | Stay Consistent 🙏
+  </footer>
+
+  <script>
+    const entriesContainer = document.getElementById("entries");
+    const allData = JSON.parse(localStorage.getItem("sadhanaData")) || [];
+
+    if (allData.length === 0) {
+      entriesContainer.innerHTML = `<p class="no-entry">No sadhana records found. Start your journey today 🌸</p>`;
+    } else {
+      allData.reverse().forEach((entry) => {
+        const div = document.createElement("div");
+        div.classList.add("entry");
+        div.innerHTML = `
+          <h3>${entry.date}</h3>
+          <p><strong>Chanting Rounds:</strong> ${entry.rounds}</p>
+          <p><strong>Gita Reading (min):</strong> ${entry.reading}</p>
+          <p><strong>Seva:</strong> ${entry.seva}</p>
+          <p><strong>Reflection:</strong> ${entry.reflection}</p>
+        `;
+        entriesContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
