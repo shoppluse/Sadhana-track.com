@@ -6,15 +6,47 @@
   <title>Sadhana Update Form</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
+    /* Existing styles here... */
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #f6ce6a, #f7f1e1);
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column; /* Changed so nav and form stack vertically */
       height: 100vh;
       margin: 0;
       padding: 20px;
+    }
+
+    nav {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #6b4f0f;
+      font-weight: 600;
+      border-right: 1px solid #d6b758;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:last-child {
+      border-right: none;
+    }
+
+    nav a:hover {
+      background-color: #d18c0f;
+      color: white;
+      border-radius: 12px 12px 0 0;
     }
 
     form {
@@ -78,6 +110,14 @@
   </style>
 </head>
 <body>
+
+  <!-- Navigation bar -->
+  <nav>
+    <a href="index.html">Update Sadhana</a>
+    <a href="history.html">View History</a>
+  </nav>
+
+  <!-- Sadhana Update Form -->
   <form id="sadhanaForm">
     <h2>Sadhana Update Form</h2>
 
@@ -135,5 +175,6 @@
       // You can add the code here to send form data to Google Sheets
     });
   </script>
+
 </body>
 </html>
