@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sadhana Update History</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f6ce6a, #f7f1e1);
+      margin: 20px;
+    }
+    h2 {
+      color: #6b4f0f;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      color: #5a4a0f;
+    }
+    th {
+      background-color: #d18c0f;
+      color: white;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f5f0d8;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sadhana Update History</h2>
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Wake Up Time</th>
+        <th>Rounds</th>
+        <th>Chanting Completion Time</th>
+        <th>Aarthi Attended (mins)</th>
+        <th>Hearing (mins)</th>
+        <th>Reading (mins)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="8">Loading data...</td></tr>
+    </tbody>
+  </table>
+  <script>
+    const csvUrl = 'YOUR_PUBLISHED_GOOGLE_SHEET_CSV_URL'; // Replace this with your Csv link
 
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csvText => {
+        const rows = csvText.split('\n').filter(r => r.trim() !== '');
+        const tbody = document.querySelector('#historyTable tbody');
+        tbody.innerHTML = '';
+
+        rows.slice(1).forEach(row => { // skip header row
+          const cols = row.split(',');
+          if(cols.length >= 8) {
+            const tr = document.createElement('tr');
+            cols.forEach(col => {
+              const td = document.createElement('td');
+              td.textContent = col.trim();
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          }
+        });
+      })
+      .catch(err => {
+        document.querySelector('#historyTable tbody').innerHTML = '<tr><td colspan="8">Failed to load data</td></tr>';
+        console.error('Failed to load data:', err);
+      });
+  </script>
+</body>
+</html>
