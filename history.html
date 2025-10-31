@@ -15,59 +15,24 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    form, table {
-      max-width: 900px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-    label {
-      font-weight: 600;
-      color: #6b4f0f;
-      margin-top: 10px;
-      display: block;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1.8px solid #d6b758;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    input:focus, select:focus {
-      border-color: #d18c0f;
-      outline: none;
-      box-shadow: 0 0 5px #d18c0f;
-    }
-    button {
-      background: #d18c0f;
-      color: white;
-      border: none;
-      margin-top: 20px;
-      padding: 12px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      width: 100%;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background: #b27000;
-    }
     table {
-      border-collapse: collapse;
       width: 100%;
-      color: #5a4a0f;
+      max-width: 900px;
+      margin: auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      table-layout: fixed;
+      word-wrap: break-word;
     }
     th, td {
       padding: 12px 15px;
-      border-bottom: 1px solid #ddd;
       text-align: center;
+      border-bottom: 1px solid #ddd;
+      color: #5a4a0f;
+      white-space: nowrap;
     }
     th {
       background-color: #d18c0f;
@@ -81,45 +46,6 @@
 </head>
 <body>
   <h2>Sadhana Update History</h2>
-
-  <form id="updateForm">
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required />
-
-    <label for="name">Name:</label>
-    <select id="name" name="name" required>
-      <option value="">Select your name</option>
-      <option value="Anirudh S A">Anirudh S A</option>
-      <option value="Kiran Kumar">Kiran Kumar</option>
-      <option value="Shreyas R S">Shreyas R S</option>
-      <option value="Chandrashekhar Gudagunti">Chandrashekhar Gudagunti</option>
-      <option value="Puneeth P M">Puneeth P M</option>
-      <option value="Sujan Gowda M">Sujan Gowda M</option>
-      <option value="Rohith Mallesh">Rohith Mallesh</option>
-      <!-- Add more members as needed -->
-    </select>
-
-    <label for="wakeUpTime">Wake Up Time:</label>
-    <input type="time" id="wakeUpTime" name="wakeUpTime" required />
-
-    <label for="rounds">Number of Rounds (Hare Krishna Mantra):</label>
-    <input type="number" id="rounds" name="rounds" min="0" required />
-
-    <label for="completionTime">Chanting Completion Time:</label>
-    <input type="time" id="completionTime" name="completionTime" required />
-
-    <label for="aarthiMins">Aarthi Attended (minutes):</label>
-    <input type="number" id="aarthiMins" name="aarthiMins" min="0" required />
-
-    <label for="hearingMins">Hearing Duration (minutes):</label>
-    <input type="number" id="hearingMins" name="hearingMins" min="0" required />
-
-    <label for="readingMins">Reading Duration (minutes):</label>
-    <input type="number" id="readingMins" name="readingMins" min="0" required />
-
-    <button type="submit">Add Update</button>
-  </form>
-
   <table id="historyTable">
     <thead>
       <tr>
@@ -133,55 +59,42 @@
         <th>Reading (mins)</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <!-- Data rows will go here -->
+    </tbody>
   </table>
 
-<script>
-  const form = document.getElementById('updateForm');
-  const tbody = document.querySelector('#historyTable tbody');
+  <script>
+    // Fetch data from localStorage
+    const updates = JSON.parse(localStorage.getItem("sadhanaUpdates")) || [];
 
-  // Load saved updates from localStorage
-  let updates = JSON.parse(localStorage.getItem('sadhanaUpdates')) || [];
+    const tbody = document.querySelector("#historyTable tbody");
 
-  function renderTable() {
-    tbody.innerHTML = '';
-    updates.forEach(update => {
-      const tr = document.createElement('tr');
-      Object.values(update).forEach(val => {
-        const td = document.createElement('td');
-        td.textContent = val;
+    function renderTable() {
+      tbody.innerHTML = "";
+
+      if (updates.length === 0) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 8;
+        td.textContent = "No updates recorded yet.";
         tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+      }
+
+      updates.forEach(update => {
+        const tr = document.createElement("tr");
+        Object.values(update).forEach(value => {
+          const td = document.createElement("td");
+          td.textContent = value;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
       });
-      tbody.appendChild(tr);
-    });
-  }
+    }
 
-  // Initialize date input with today's date
-  document.getElementById('date').value = new Date().toISOString().split('T')[0];
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const formData = {
-      date: form.date.value,
-      name: form.name.value,
-      wakeUpTime: form.wakeUpTime.value,
-      rounds: form.rounds.value,
-      completionTime: form.completionTime.value,
-      aarthiMins: form.aarthiMins.value,
-      hearingMins: form.hearingMins.value,
-      readingMins: form.readingMins.value,
-    };
-
-    updates.push(formData);
-    localStorage.setItem('sadhanaUpdates', JSON.stringify(updates));
     renderTable();
-
-    form.reset();
-    form.date.value = new Date().toISOString().split('T')[0];
-  });
-
-  renderTable();
-</script>
+  </script>
 </body>
 </html>
