@@ -1,180 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sadhana Update Form</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <style>
-    /* Existing styles here... */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f6ce6a, #f7f1e1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column; /* Changed so nav and form stack vertically */
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
-
-    nav {
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    nav a {
-      padding: 15px 20px;
-      text-decoration: none;
-      color: #6b4f0f;
-      font-weight: 600;
-      border-right: 1px solid #d6b758;
-      transition: background-color 0.3s ease;
-    }
-
-    nav a:last-child {
-      border-right: none;
-    }
-
-    nav a:hover {
-      background-color: #d18c0f;
-      color: white;
-      border-radius: 12px 12px 0 0;
-    }
-
-    form {
-      background: white;
-      padding: 30px 25px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    h2 {
-      color: #6b4f0f;
-      text-align: center;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-
-    label {
-      font-weight: 600;
-      margin-top: 15px;
-      display: block;
-      color: #6b4f0f;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1.8px solid #d6b758;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    input:focus, select:focus {
-      border-color: #d18c0f;
-      outline: none;
-      box-shadow: 0 0 5px #d18c0f;
-    }
-
-    button {
-      background: #d18c0f;
-      color: white;
-      border: none;
-      margin-top: 25px;
-      padding: 12px 0;
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
-    }
-
-    button:hover {
-      background: #b27000;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Portal</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Navigation bar -->
-  <nav>
-    <a href="index.html">Update Sadhana</a>
-    <a href="history.html">View History</a>
-  </nav>
+  <div class="container">
+    <div class="hero">
+      <h1>Welcome!</h1>
+      <p>Log in to access your account.</p>
+    </div>
 
-  <!-- Sadhana Update Form -->
-  <form id="sadhanaForm">
-    <h2>Sadhana Update Form</h2>
+    <form id="loginForm" action="login.php" method="post">
+      <h2>Login</h2>
 
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required />
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
 
-    <label for="name">Name:</label>
-    <select id="name" name="name" required>
-      <option value="">Select your name</option>
-      <option value="Kiran Kumar">Kiran Kumar</option>
-      <option value="Shreyas R S">Shreyas R S</option>
-      <option value="Chandrashekhar Gudagunti">Chandrashekhar Gudagunti</option>
-      <option value="Puneeth P M">Puneeth P M</option>
-      <option value="Sujan Gowda M">Sujan Gowda M</option>
-      <option value="Rohith Mallesh">Rohith Mallesh</option>
-      <option value="Charan M">Charan M</option>
-      <option value="Varun Byadgi">Varun Byadgi</option>
-      <option value="Ravishankar Ankit">Ravishankar Ankit</option>
-      <option value="Anirudh S A">Anirudh S A</option>
-      <option value="Subhash Chandra">Subhash Chandra</option>
-      <option value="Shishir Balaji">Shishir Balaji</option>
-      <option value="Ganapathi Hegde">Ganapathi Hegde</option>
-    </select>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
 
-    <label for="wakeUpTime">Wake Up Time:</label>
-    <input type="time" id="wakeUpTime" name="wakeUpTime" required />
+      <button type="submit">Login</button>
+      <a href="register.php">Don't have an account? Register</a>
 
-    <label for="rounds">Number of Rounds (Hare Krishna Mantra):</label>
-    <input type="number" id="rounds" name="rounds" min="0" required />
+    </form>
 
-    <label for="completionTime">Chanting Completion Time:</label>
-    <input type="time" id="completionTime" name="completionTime" required />
-
-    <label for="aarthiMins">Aarthi Attended (minutes):</label>
-    <input type="number" id="aarthiMins" name="aarthiMins" min="0" required />
-
-    <label for="hearingMins">Hearing Duration (minutes):</label>
-    <input type="number" id="hearingMins" name="hearingMins" min="0" required />
-
-    <label for="readingMins">Reading Duration (minutes):</label>
-    <input type="number" id="readingMins" name="readingMins" min="0" required />
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <script>
-    // Auto-fill today's date in yyyy-mm-dd format
-    const dateInput = document.getElementById("date");
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.value = today;
-
-    document.getElementById("sadhanaForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      alert("Form submitted! Integration with Google Sheets can be added.");
-      // You can add the code here to send form data to Google Sheets
-    });
-  </script>
+    <div class="footer">
+      <p>&copy; 2023 Your Company</p>
+    </div>
+  </div>
 
 </body>
 </html>
