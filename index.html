@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conditional Theory to Flowchart</title>
+  <title>Conditional Theory ➜ Flowchart Generator</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
     :root {
       --bg: #0f172a;
       --card: #111827;
-      --card2: #1f2937;
       --text: #f8fafc;
       --muted: #cbd5e1;
       --accent: #38bdf8;
-      --accent2: #22c55e;
+      --success: #22c55e;
       --danger: #ef4444;
+      --warning: #f59e0b;
       --border: rgba(255,255,255,0.08);
       --shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
@@ -31,7 +31,7 @@
     }
 
     .container {
-      max-width: 1300px;
+      max-width: 1350px;
       margin: 0 auto;
     }
 
@@ -63,9 +63,9 @@
     }
 
     .card {
-      background: rgba(17, 24, 39, 0.9);
+      background: rgba(17, 24, 39, 0.92);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 18px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
@@ -98,7 +98,7 @@
 
     .buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       margin-top: 14px;
     }
@@ -118,19 +118,9 @@
       color: white;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.25);
-    }
-
-    .btn-secondary {
+    .btn-success {
       background: linear-gradient(90deg, #22c55e, #16a34a);
       color: white;
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
     }
 
     .btn-danger {
@@ -138,9 +128,14 @@
       color: white;
     }
 
-    .btn-danger:hover {
+    .btn-warning {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      color: white;
+    }
+
+    button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+      filter: brightness(1.05);
     }
 
     .code-box {
@@ -148,7 +143,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 14px;
-      min-height: 160px;
+      min-height: 170px;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
       font-family: Consolas, Monaco, monospace;
@@ -165,6 +160,7 @@
       padding: 14px;
       overflow: auto;
       min-height: 420px;
+      position: relative;
     }
 
     .tips {
@@ -185,10 +181,17 @@
       color: #93c5fd;
     }
 
-    .example {
+    .download-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .note {
+      margin-top: 12px;
       color: #cbd5e1;
       font-size: 14px;
-      margin-top: 8px;
       line-height: 1.6;
     }
 
@@ -196,6 +199,7 @@
       .grid {
         grid-template-columns: 1fr;
       }
+
       textarea {
         min-height: 280px;
       }
@@ -206,38 +210,35 @@
   <div class="container">
     <div class="hero">
       <h1>Conditional Theory ➜ Flowchart Generator</h1>
-      <p>Paste your story, logic, or condition-based theory and generate a visual flowchart instantly.</p>
+      <p>Paste your story / condition logic and generate a downloadable visual flowchart instantly.</p>
     </div>
 
     <div class="grid">
-      <!-- Left -->
+      <!-- LEFT -->
       <div class="card">
         <h2>📝 Input Theory / Conditional Story</h2>
-        <textarea id="inputText" placeholder="Paste your condition story here...">
-One night, a young man entered an old abandoned house. Inside, he found three paths.
+        <textarea id="inputText" placeholder="Paste your condition theory here...">One night, a young man entered an old abandoned house. Inside, he found three paths.
 If he chose the first path, he would find a room full of money, but he would hear footsteps behind him.
 If he chose the second path, he would go underground and find a locked metal box with his name on it.
 If he chose the third path, he would see a glowing room with a computer that says, 'I have been waiting for you.'
-No matter which path he chose, something impossible would happen next.
-        </textarea>
+No matter which path he chose, something impossible would happen next.</textarea>
 
         <div class="buttons">
           <button class="btn-primary" onclick="generateFlowchart()">Generate Flowchart</button>
-          <button class="btn-secondary" onclick="loadExample()">Load Example</button>
+          <button class="btn-success" onclick="loadExample()">Load Example</button>
           <button class="btn-danger" onclick="clearAll()">Clear</button>
         </div>
 
         <div class="tips">
-          <strong>Best input style for good results:</strong><br>
-          • Use sentences starting with <b>If...</b><br>
-          • Example: <b>If user is logged in, go to home.</b><br>
-          • Example: <b>Else show login page.</b><br>
-          • Example: <b>If payment succeeds, show success page.</b><br>
-          • Example: <b>No matter what, save history.</b>
+          <strong>Best input format:</strong><br>
+          • Use <b>If...</b>, <b>Else...</b>, <b>If chosen...</b>, <b>No matter what...</b><br>
+          • Example: <b>If user is logged in, go to Home.</b><br>
+          • Example: <b>Else show Login page.</b><br>
+          • Example: <b>No matter what, save user history.</b>
         </div>
       </div>
 
-      <!-- Right -->
+      <!-- RIGHT -->
       <div class="card">
         <h2>📊 Generated Flowchart</h2>
         <div class="status" id="statusText">Ready to generate.</div>
@@ -247,13 +248,22 @@ No matter which path he chose, something impossible would happen next.
 A([Start]) --> B[Waiting for input...]
 B --> C([End])</div>
 
+        <div class="download-buttons">
+          <button class="btn-success" onclick="downloadSVG()">Download SVG</button>
+          <button class="btn-warning" onclick="downloadPNG()">Download PNG</button>
+          <button class="btn-primary" onclick="downloadMermaidCode()">Download Code</button>
+        </div>
+
         <h3 style="margin-top:14px; font-size: 1rem; color:#e2e8f0;">Visual Flowchart</h3>
         <div class="flowchart-wrapper">
           <div id="flowchart"></div>
         </div>
 
-        <div class="example">
-          This is a smart rule-based parser. It works best for <b>If / Else / Choose / No matter what</b> style inputs.
+        <div class="note">
+          Download options:<br>
+          • <b>SVG</b> = best quality, scalable<br>
+          • <b>PNG</b> = easy to share as image<br>
+          • <b>Code</b> = Mermaid source text
         </div>
       </div>
     </div>
@@ -270,6 +280,9 @@ B --> C([End])</div>
         curve: "basis"
       }
     });
+
+    let currentSVG = "";
+    let currentMermaidCode = "";
 
     function sanitizeText(text) {
       return text
@@ -295,7 +308,6 @@ B --> C([End])</div>
     function extractConditionAndAction(sentence) {
       const original = sanitizeText(sentence);
 
-      // Match: If ... , ...
       let match = original.match(/^if\s+(.+?)(?:,|\bthen\b)\s*(.+)$/i);
       if (match) {
         return {
@@ -305,7 +317,6 @@ B --> C([End])</div>
         };
       }
 
-      // Match: If he chose... he would...
       match = original.match(/^if\s+(.+?)\s+(he|she|they|user|it)\s+(would|will|can|could)\s+(.+)$/i);
       if (match) {
         return {
@@ -315,7 +326,6 @@ B --> C([End])</div>
         };
       }
 
-      // Match Else
       match = original.match(/^else\s+(.+)$/i);
       if (match) {
         return {
@@ -324,7 +334,6 @@ B --> C([End])</div>
         };
       }
 
-      // Match No matter which / No matter what
       match = original.match(/^no matter (which|what|who).+?(?:,|\s)(.+)$/i);
       if (match) {
         return {
@@ -333,7 +342,6 @@ B --> C([End])</div>
         };
       }
 
-      // Match "If he chose the first path..."
       match = original.match(/^if\s+(.+?)\s*,?\s*(.+)$/i);
       if (match) {
         return {
@@ -352,7 +360,7 @@ B --> C([End])</div>
     function buildMermaidFromText(text) {
       const sentences = splitIntoSentences(text);
 
-      let mermaid = ["flowchart TD"];
+      let mermaidLines = ["flowchart TD"];
       let nodeCount = 0;
 
       const nextId = () => {
@@ -361,20 +369,18 @@ B --> C([End])</div>
       };
 
       const startId = nextId();
-      mermaid.push(`${startId}([Start])`);
+      mermaidLines.push(`${startId}([Start])`);
 
       let currentId = startId;
-      let lastDecisionId = null;
       let lastDecisionNoTarget = null;
       let branchEndNodes = [];
 
-      // First sentence as intro if not IF
       if (sentences.length > 0) {
         const firstParsed = extractConditionAndAction(sentences[0]);
         if (firstParsed.type === "normal") {
           const introId = nextId();
-          mermaid.push(`${introId}[${firstParsed.action}]`);
-          mermaid.push(`${currentId} --> ${introId}`);
+          mermaidLines.push(`${introId}[${firstParsed.action}]`);
+          mermaidLines.push(`${currentId} --> ${introId}`);
           currentId = introId;
         }
       }
@@ -382,74 +388,70 @@ B --> C([End])</div>
       for (let i = 0; i < sentences.length; i++) {
         const parsed = extractConditionAndAction(sentences[i]);
 
-        // Skip first if already used as intro
         if (i === 0 && parsed.type === "normal") continue;
 
         if (parsed.type === "if") {
           const decisionId = nextId();
           const yesId = nextId();
 
-          mermaid.push(`${decisionId}{${parsed.condition}?}`);
-          mermaid.push(`${yesId}[${parsed.action}]`);
+          mermaidLines.push(`${decisionId}{${parsed.condition}?}`);
+          mermaidLines.push(`${yesId}[${parsed.action}]`);
 
-          // If previous decision had an open NO path, connect it here
           if (lastDecisionNoTarget) {
-            mermaid.push(`${lastDecisionNoTarget} -->|No| ${decisionId}`);
+            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${decisionId}`);
             lastDecisionNoTarget = null;
           } else {
-            mermaid.push(`${currentId} --> ${decisionId}`);
+            mermaidLines.push(`${currentId} --> ${decisionId}`);
           }
 
-          mermaid.push(`${decisionId} -->|Yes| ${yesId}`);
+          mermaidLines.push(`${decisionId} -->|Yes| ${yesId}`);
 
-          lastDecisionId = decisionId;
           lastDecisionNoTarget = decisionId;
           branchEndNodes.push(yesId);
         }
         else if (parsed.type === "else") {
           const elseId = nextId();
-          mermaid.push(`${elseId}[${parsed.action}]`);
+          mermaidLines.push(`${elseId}[${parsed.action}]`);
 
           if (lastDecisionNoTarget) {
-            mermaid.push(`${lastDecisionNoTarget} -->|No| ${elseId}`);
+            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${elseId}`);
             lastDecisionNoTarget = null;
           } else {
-            mermaid.push(`${currentId} --> ${elseId}`);
+            mermaidLines.push(`${currentId} --> ${elseId}`);
           }
 
           branchEndNodes.push(elseId);
         }
         else if (parsed.type === "universal") {
           const universalId = nextId();
-          mermaid.push(`${universalId}[${parsed.action}]`);
+          mermaidLines.push(`${universalId}[${parsed.action}]`);
 
           if (branchEndNodes.length > 0) {
             branchEndNodes.forEach(id => {
-              mermaid.push(`${id} --> ${universalId}`);
+              mermaidLines.push(`${id} --> ${universalId}`);
             });
 
-            // If a decision NO path is still open, connect it too
             if (lastDecisionNoTarget) {
-              mermaid.push(`${lastDecisionNoTarget} -->|No| ${universalId}`);
+              mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${universalId}`);
               lastDecisionNoTarget = null;
             }
 
             currentId = universalId;
             branchEndNodes = [];
           } else {
-            mermaid.push(`${currentId} --> ${universalId}`);
+            mermaidLines.push(`${currentId} --> ${universalId}`);
             currentId = universalId;
           }
         }
         else {
           const normalId = nextId();
-          mermaid.push(`${normalId}[${parsed.action}]`);
+          mermaidLines.push(`${normalId}[${parsed.action}]`);
 
           if (lastDecisionNoTarget) {
-            mermaid.push(`${lastDecisionNoTarget} -->|No| ${normalId}`);
+            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${normalId}`);
             lastDecisionNoTarget = null;
           } else {
-            mermaid.push(`${currentId} --> ${normalId}`);
+            mermaidLines.push(`${currentId} --> ${normalId}`);
           }
 
           currentId = normalId;
@@ -458,22 +460,21 @@ B --> C([End])</div>
 
       const endId = nextId();
 
-      // If branches exist, merge them into end
       if (branchEndNodes.length > 0) {
         if (lastDecisionNoTarget) {
-          mermaid.push(`${lastDecisionNoTarget} -->|No| ${endId}`);
+          mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${endId}`);
           lastDecisionNoTarget = null;
         }
         branchEndNodes.forEach(id => {
-          mermaid.push(`${id} --> ${endId}`);
+          mermaidLines.push(`${id} --> ${endId}`);
         });
       } else {
-        mermaid.push(`${currentId} --> ${endId}`);
+        mermaidLines.push(`${currentId} --> ${endId}`);
       }
 
-      mermaid.push(`${endId}([End])`);
+      mermaidLines.push(`${endId}([End])`);
 
-      return mermaid.join("\n");
+      return mermaidLines.join("\n");
     }
 
     async function renderMermaid(code) {
@@ -485,7 +486,10 @@ B --> C([End])</div>
       try {
         const { svg } = await mermaid.render(uniqueId, code);
         flowchartDiv.innerHTML = svg;
+        currentSVG = svg;
+        currentMermaidCode = code;
       } catch (error) {
+        currentSVG = "";
         flowchartDiv.innerHTML = `
           <div style="color:#b91c1c; background:#fee2e2; border:1px solid #fecaca; padding:14px; border-radius:12px;">
             <strong>Flowchart render error:</strong><br>${error.message}
@@ -508,16 +512,19 @@ B --> C([End])</div>
       const code = buildMermaidFromText(input);
       codeBox.textContent = code;
       await renderMermaid(code);
-      statusText.textContent = "Flowchart generated successfully!";
+      statusText.textContent = "Flowchart generated successfully! Ready to download.";
     }
 
     function clearAll() {
       document.getElementById("inputText").value = "";
-      document.getElementById("mermaidCode").textContent = `flowchart TD
+      const defaultCode = `flowchart TD
 A([Start]) --> B[Waiting for input...]
 B --> C([End])`;
+      document.getElementById("mermaidCode").textContent = defaultCode;
       document.getElementById("flowchart").innerHTML = "";
       document.getElementById("statusText").textContent = "Cleared. Ready for new input.";
+      currentSVG = "";
+      currentMermaidCode = defaultCode;
     }
 
     function loadExample() {
@@ -529,10 +536,93 @@ No matter which path he chose, something impossible would happen next.`;
       document.getElementById("statusText").textContent = "Example loaded. Click Generate Flowchart.";
     }
 
+    function downloadBlob(content, fileName, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadSVG() {
+      if (!currentSVG) {
+        alert("Please generate the flowchart first.");
+        return;
+      }
+      downloadBlob(currentSVG, "flowchart.svg", "image/svg+xml;charset=utf-8");
+    }
+
+    function downloadMermaidCode() {
+      if (!currentMermaidCode) {
+        alert("Please generate the flowchart first.");
+        return;
+      }
+      downloadBlob(currentMermaidCode, "flowchart-mermaid.txt", "text/plain;charset=utf-8");
+    }
+
+    function downloadPNG() {
+      if (!currentSVG) {
+        alert("Please generate the flowchart first.");
+        return;
+      }
+
+      const svgBlob = new Blob([currentSVG], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+
+        const svgElement = document.querySelector("#flowchart svg");
+        let width = svgElement ? (svgElement.viewBox.baseVal.width || svgElement.getBoundingClientRect().width || 1200) : 1200;
+        let height = svgElement ? (svgElement.viewBox.baseVal.height || svgElement.getBoundingClientRect().height || 800) : 800;
+
+        const scale = 2; // high quality
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+
+        const ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+
+        // white background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(function(blob) {
+          const pngUrl = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = pngUrl;
+          a.download = "flowchart.png";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(pngUrl);
+        }, "image/png");
+
+        URL.revokeObjectURL(url);
+      };
+
+      img.onerror = function () {
+        alert("Failed to convert SVG to PNG.");
+        URL.revokeObjectURL(url);
+      };
+
+      img.src = url;
+    }
+
     // Initial render
-    renderMermaid(`flowchart TD
+    const initialCode = `flowchart TD
 A([Start]) --> B[Paste your theory and click Generate]
-B --> C([End])`);
+B --> C([End])`;
+
+    currentMermaidCode = initialCode;
+    renderMermaid(initialCode);
   </script>
 </body>
 </html>
