@@ -3,435 +3,536 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prank Question 😈</title>
+  <title>Conditional Theory to Flowchart</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card2: #1f2937;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+      --danger: #ef4444;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
-    :root {
-      --yes-w: 140px;
-      --yes-h: 56px;
-      --no-w: 140px;
-      --no-h: 56px;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #020617, #0f172a, #111827);
+      color: var(--text);
       min-height: 100vh;
-      overflow: hidden;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #ff6ec7, #6a5cff, #00d4ff);
-      background-size: 300% 300%;
-      animation: bgMove 10s ease infinite;
-      color: #fff;
-      user-select: none;
-      position: relative;
-    }
-
-    @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      padding: 24px;
     }
 
     .container {
-      position: relative;
-      width: min(90vw, 700px);
-      min-height: 380px;
-      padding: 30px 20px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .hero {
       text-align: center;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 28px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: visible;
+      margin-bottom: 24px;
     }
 
-    h1 {
+    .hero h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 800;
-      line-height: 1.15;
-      text-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #38bdf8, #22c55e, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .subtitle {
-      margin-top: 12px;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      opacity: 0.95;
-      font-weight: 600;
+    .hero p {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 1rem;
     }
 
-    .buttons-zone {
-      position: relative;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+    }
+
+    textarea {
       width: 100%;
-      height: 190px;
-      margin-top: 34px;
-    }
-
-    .btn {
-      border: none;
+      min-height: 360px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #0b1220;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
       outline: none;
-      cursor: pointer;
-      width: 140px;
-      height: 56px;
-      border-radius: 999px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.22);
-      position: absolute;
-      touch-action: manipulation;
     }
 
-    .btn:hover {
-      transform: translateY(-2px) scale(1.03);
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
     }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    #yesBtn {
-      left: calc(50% - 160px);
-      top: 70px;
-      background: linear-gradient(135deg, #1dd1a1, #10ac84);
-      color: #fff;
-    }
-
-    #yesBtn:hover {
-      box-shadow: 0 12px 28px rgba(16, 172, 132, 0.45);
-    }
-
-    #noBtn {
-      left: calc(50% + 20px);
-      top: 70px;
-      background: linear-gradient(135deg, #ff4d6d, #ff6b81);
-      color: #fff;
-    }
-
-    #noBtn:hover {
-      box-shadow: 0 12px 28px rgba(255, 77, 109, 0.45);
-    }
-
-    .shake {
-      animation: shake 0.22s ease;
-    }
-
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-4px); }
-      100% { transform: translateX(0); }
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .final-screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    .final-screen.show {
+    .buttons {
       display: flex;
-    }
-
-    .final-text {
-      font-size: clamp(1.8rem, 5vw, 3.2rem);
-      font-weight: 900;
-      line-height: 1.2;
-      text-shadow: 0 6px 22px rgba(0,0,0,0.28);
-      animation: popBounce 0.7s ease;
-      padding: 0 10px;
-    }
-
-    .emoji-line {
+      gap: 12px;
+      flex-wrap: wrap;
       margin-top: 14px;
-      font-size: clamp(2rem, 6vw, 3rem);
-      animation: floaty 1.4s ease-in-out infinite;
     }
 
-    @keyframes popBounce {
-      0% { transform: scale(0.6); opacity: 0; }
-      60% { transform: scale(1.08); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes floaty {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .confetti {
-      position: fixed;
-      width: 12px;
-      height: 18px;
-      top: -20px;
-      opacity: 0.95;
-      border-radius: 4px;
-      pointer-events: none;
-      animation: fall linear forwards;
-      z-index: 9999;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0.95;
-      }
-    }
-
-    .small-note {
-      position: fixed;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 14px;
       font-weight: 700;
-      opacity: 0.9;
-      background: rgba(0,0,0,0.16);
-      padding: 8px 14px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      cursor: pointer;
+      transition: 0.25s ease;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        min-height: 420px;
-        padding: 26px 16px;
-      }
+    .btn-primary {
+      background: linear-gradient(90deg, #38bdf8, #2563eb);
+      color: white;
+    }
 
-      .buttons-zone {
-        height: 220px;
-      }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.25);
+    }
 
-      .btn {
-        width: 128px;
-        height: 52px;
-        font-size: 1rem;
-      }
+    .btn-secondary {
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      color: white;
+    }
 
-      #yesBtn {
-        left: calc(50% - 140px);
-        top: 84px;
-      }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+    }
 
-      #noBtn {
-        left: calc(50% + 12px);
-        top: 84px;
+    .btn-danger {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+    }
+
+    .code-box {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 160px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+      color: #d1fae5;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .flowchart-wrapper {
+      margin-top: 14px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px;
+      overflow: auto;
+      min-height: 420px;
+    }
+
+    .tips {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #93c5fd;
+    }
+
+    .example {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      textarea {
+        min-height: 280px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="mainContainer">
-    <div id="questionArea">
-      <h1>Are you gay? 😏</h1>
-      <div class="subtitle">Be honest bro 😈</div>
-
-      <div class="buttons-zone" id="buttonsZone">
-        <button class="btn" id="yesBtn">Yes</button>
-        <button class="btn" id="noBtn">No</button>
-      </div>
+  <div class="container">
+    <div class="hero">
+      <h1>Conditional Theory ➜ Flowchart Generator</h1>
+      <p>Paste your story, logic, or condition-based theory and generate a visual flowchart instantly.</p>
     </div>
 
-    <div class="final-screen" id="finalScreen">
-      <div class="final-text">Finally you confirmed by yourself 😭😂</div>
-      <div class="emoji-line">😈🔥😂</div>
+    <div class="grid">
+      <!-- Left -->
+      <div class="card">
+        <h2>📝 Input Theory / Conditional Story</h2>
+        <textarea id="inputText" placeholder="Paste your condition story here...">
+One night, a young man entered an old abandoned house. Inside, he found three paths.
+If he chose the first path, he would find a room full of money, but he would hear footsteps behind him.
+If he chose the second path, he would go underground and find a locked metal box with his name on it.
+If he chose the third path, he would see a glowing room with a computer that says, 'I have been waiting for you.'
+No matter which path he chose, something impossible would happen next.
+        </textarea>
+
+        <div class="buttons">
+          <button class="btn-primary" onclick="generateFlowchart()">Generate Flowchart</button>
+          <button class="btn-secondary" onclick="loadExample()">Load Example</button>
+          <button class="btn-danger" onclick="clearAll()">Clear</button>
+        </div>
+
+        <div class="tips">
+          <strong>Best input style for good results:</strong><br>
+          • Use sentences starting with <b>If...</b><br>
+          • Example: <b>If user is logged in, go to home.</b><br>
+          • Example: <b>Else show login page.</b><br>
+          • Example: <b>If payment succeeds, show success page.</b><br>
+          • Example: <b>No matter what, save history.</b>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="card">
+        <h2>📊 Generated Flowchart</h2>
+        <div class="status" id="statusText">Ready to generate.</div>
+
+        <h3 style="margin-top:14px; font-size: 1rem; color:#e2e8f0;">Mermaid Code</h3>
+        <div class="code-box" id="mermaidCode">flowchart TD
+A([Start]) --> B[Waiting for input...]
+B --> C([End])</div>
+
+        <h3 style="margin-top:14px; font-size: 1rem; color:#e2e8f0;">Visual Flowchart</h3>
+        <div class="flowchart-wrapper">
+          <div id="flowchart"></div>
+        </div>
+
+        <div class="example">
+          This is a smart rule-based parser. It works best for <b>If / Else / Choose / No matter what</b> style inputs.
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="small-note">Try clicking “No” if you can 😭</div>
-
   <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const buttonsZone = document.getElementById("buttonsZone");
-    const questionArea = document.getElementById("questionArea");
-    const finalScreen = document.getElementById("finalScreen");
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "default",
+      securityLevel: "loose",
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: "basis"
+      }
+    });
 
-    let isMoving = false;
-    let lastMoveTime = 0;
-
-    function getRect(el) {
-      return el.getBoundingClientRect();
+    function sanitizeText(text) {
+      return text
+        .replace(/"/g, "'")
+        .replace(/[<>]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
-    function overlap(r1, r2, padding = 12) {
-      return !(
-        r1.right + padding < r2.left ||
-        r1.left > r2.right + padding ||
-        r1.bottom + padding < r2.top ||
-        r1.top > r2.bottom + padding
-      );
+    function splitIntoSentences(text) {
+      return text
+        .replace(/\n+/g, " ")
+        .split(/(?<=[.!?])\s+/)
+        .map(s => s.trim())
+        .filter(Boolean);
     }
 
-    function moveNoButton() {
-      const now = Date.now();
-      if (isMoving || now - lastMoveTime < 90) return;
+    function shorten(text, max = 60) {
+      if (text.length <= max) return text;
+      return text.slice(0, max - 3) + "...";
+    }
 
-      isMoving = true;
-      lastMoveTime = now;
+    function extractConditionAndAction(sentence) {
+      const original = sanitizeText(sentence);
 
-      const zoneRect = buttonsZone.getBoundingClientRect();
-      const yesRect = getRect(yesBtn);
-
-      const btnW = noBtn.offsetWidth;
-      const btnH = noBtn.offsetHeight;
-
-      let tries = 0;
-      let placed = false;
-
-      while (tries < 80 && !placed) {
-        const x = Math.random() * Math.max(10, zoneRect.width - btnW);
-        const y = Math.random() * Math.max(10, zoneRect.height - btnH);
-
-        const newRect = {
-          left: zoneRect.left + x,
-          top: zoneRect.top + y,
-          right: zoneRect.left + x + btnW,
-          bottom: zoneRect.top + y + btnH
+      // Match: If ... , ...
+      let match = original.match(/^if\s+(.+?)(?:,|\bthen\b)\s*(.+)$/i);
+      if (match) {
+        return {
+          type: "if",
+          condition: shorten(match[1].trim(), 50),
+          action: shorten(match[2].trim(), 70)
         };
+      }
 
-        if (!overlap(newRect, yesRect, 20)) {
-          noBtn.style.left = `${x}px`;
-          noBtn.style.top = `${y}px`;
-          noBtn.classList.remove("shake");
-          void noBtn.offsetWidth;
-          noBtn.classList.add("shake");
-          placed = true;
+      // Match: If he chose... he would...
+      match = original.match(/^if\s+(.+?)\s+(he|she|they|user|it)\s+(would|will|can|could)\s+(.+)$/i);
+      if (match) {
+        return {
+          type: "if",
+          condition: shorten(match[1].trim(), 50),
+          action: shorten(match[4].trim(), 70)
+        };
+      }
+
+      // Match Else
+      match = original.match(/^else\s+(.+)$/i);
+      if (match) {
+        return {
+          type: "else",
+          action: shorten(match[1].trim(), 70)
+        };
+      }
+
+      // Match No matter which / No matter what
+      match = original.match(/^no matter (which|what|who).+?(?:,|\s)(.+)$/i);
+      if (match) {
+        return {
+          type: "universal",
+          action: shorten(match[2].trim(), 70)
+        };
+      }
+
+      // Match "If he chose the first path..."
+      match = original.match(/^if\s+(.+?)\s*,?\s*(.+)$/i);
+      if (match) {
+        return {
+          type: "if",
+          condition: shorten(match[1].trim(), 50),
+          action: shorten(match[2].trim(), 70)
+        };
+      }
+
+      return {
+        type: "normal",
+        action: shorten(original, 70)
+      };
+    }
+
+    function buildMermaidFromText(text) {
+      const sentences = splitIntoSentences(text);
+
+      let mermaid = ["flowchart TD"];
+      let nodeCount = 0;
+
+      const nextId = () => {
+        nodeCount++;
+        return "N" + nodeCount;
+      };
+
+      const startId = nextId();
+      mermaid.push(`${startId}([Start])`);
+
+      let currentId = startId;
+      let lastDecisionId = null;
+      let lastDecisionNoTarget = null;
+      let branchEndNodes = [];
+
+      // First sentence as intro if not IF
+      if (sentences.length > 0) {
+        const firstParsed = extractConditionAndAction(sentences[0]);
+        if (firstParsed.type === "normal") {
+          const introId = nextId();
+          mermaid.push(`${introId}[${firstParsed.action}]`);
+          mermaid.push(`${currentId} --> ${introId}`);
+          currentId = introId;
         }
-
-        tries++;
       }
 
-      setTimeout(() => {
-        isMoving = false;
-      }, 100);
+      for (let i = 0; i < sentences.length; i++) {
+        const parsed = extractConditionAndAction(sentences[i]);
+
+        // Skip first if already used as intro
+        if (i === 0 && parsed.type === "normal") continue;
+
+        if (parsed.type === "if") {
+          const decisionId = nextId();
+          const yesId = nextId();
+
+          mermaid.push(`${decisionId}{${parsed.condition}?}`);
+          mermaid.push(`${yesId}[${parsed.action}]`);
+
+          // If previous decision had an open NO path, connect it here
+          if (lastDecisionNoTarget) {
+            mermaid.push(`${lastDecisionNoTarget} -->|No| ${decisionId}`);
+            lastDecisionNoTarget = null;
+          } else {
+            mermaid.push(`${currentId} --> ${decisionId}`);
+          }
+
+          mermaid.push(`${decisionId} -->|Yes| ${yesId}`);
+
+          lastDecisionId = decisionId;
+          lastDecisionNoTarget = decisionId;
+          branchEndNodes.push(yesId);
+        }
+        else if (parsed.type === "else") {
+          const elseId = nextId();
+          mermaid.push(`${elseId}[${parsed.action}]`);
+
+          if (lastDecisionNoTarget) {
+            mermaid.push(`${lastDecisionNoTarget} -->|No| ${elseId}`);
+            lastDecisionNoTarget = null;
+          } else {
+            mermaid.push(`${currentId} --> ${elseId}`);
+          }
+
+          branchEndNodes.push(elseId);
+        }
+        else if (parsed.type === "universal") {
+          const universalId = nextId();
+          mermaid.push(`${universalId}[${parsed.action}]`);
+
+          if (branchEndNodes.length > 0) {
+            branchEndNodes.forEach(id => {
+              mermaid.push(`${id} --> ${universalId}`);
+            });
+
+            // If a decision NO path is still open, connect it too
+            if (lastDecisionNoTarget) {
+              mermaid.push(`${lastDecisionNoTarget} -->|No| ${universalId}`);
+              lastDecisionNoTarget = null;
+            }
+
+            currentId = universalId;
+            branchEndNodes = [];
+          } else {
+            mermaid.push(`${currentId} --> ${universalId}`);
+            currentId = universalId;
+          }
+        }
+        else {
+          const normalId = nextId();
+          mermaid.push(`${normalId}[${parsed.action}]`);
+
+          if (lastDecisionNoTarget) {
+            mermaid.push(`${lastDecisionNoTarget} -->|No| ${normalId}`);
+            lastDecisionNoTarget = null;
+          } else {
+            mermaid.push(`${currentId} --> ${normalId}`);
+          }
+
+          currentId = normalId;
+        }
+      }
+
+      const endId = nextId();
+
+      // If branches exist, merge them into end
+      if (branchEndNodes.length > 0) {
+        if (lastDecisionNoTarget) {
+          mermaid.push(`${lastDecisionNoTarget} -->|No| ${endId}`);
+          lastDecisionNoTarget = null;
+        }
+        branchEndNodes.forEach(id => {
+          mermaid.push(`${id} --> ${endId}`);
+        });
+      } else {
+        mermaid.push(`${currentId} --> ${endId}`);
+      }
+
+      mermaid.push(`${endId}([End])`);
+
+      return mermaid.join("\n");
     }
 
-    function pointerNearNoButton(clientX, clientY) {
-      const rect = noBtn.getBoundingClientRect();
-      const padding = window.innerWidth < 768 ? 90 : 70;
-      return (
-        clientX > rect.left - padding &&
-        clientX < rect.right + padding &&
-        clientY > rect.top - padding &&
-        clientY < rect.bottom + padding
-      );
-    }
+    async function renderMermaid(code) {
+      const flowchartDiv = document.getElementById("flowchart");
+      flowchartDiv.innerHTML = "";
 
-    document.addEventListener("mousemove", (e) => {
-      if (pointerNearNoButton(e.clientX, e.clientY)) {
-        moveNoButton();
-      }
-    });
+      const uniqueId = "mermaidChart_" + Date.now();
 
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    });
-    noBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    });
-
-    // Mobile touch handling
-    document.addEventListener("touchstart", (e) => {
-      const touch = e.touches[0];
-      if (!touch) return;
-      if (pointerNearNoButton(touch.clientX, touch.clientY)) {
-        moveNoButton();
-      }
-    }, { passive: true });
-
-    document.addEventListener("touchmove", (e) => {
-      const touch = e.touches[0];
-      if (!touch) return;
-      if (pointerNearNoButton(touch.clientX, touch.clientY)) {
-        moveNoButton();
-      }
-    }, { passive: true });
-
-    noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    }, { passive: false });
-
-    yesBtn.addEventListener("click", () => {
-      questionArea.classList.add("hidden");
-      finalScreen.classList.add("show");
-      launchConfetti();
-    });
-
-    function launchConfetti() {
-      const pieces = 80;
-      const colors = [
-        "#ff4d6d", "#ffd166", "#06d6a0", "#118ab2", "#f72585", "#ffffff", "#ff9f1c"
-      ];
-
-      for (let i = 0; i < pieces; i++) {
-        const conf = document.createElement("div");
-        conf.className = "confetti";
-        conf.style.left = Math.random() * 100 + "vw";
-        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
-        conf.style.width = (8 + Math.random() * 8) + "px";
-        conf.style.height = (12 + Math.random() * 14) + "px";
-        conf.style.animationDuration = (2.5 + Math.random() * 2.5) + "s";
-        conf.style.transform = `rotate(${Math.random() * 360}deg)`;
-        document.body.appendChild(conf);
-
-        setTimeout(() => {
-          conf.remove();
-        }, 5500);
+      try {
+        const { svg } = await mermaid.render(uniqueId, code);
+        flowchartDiv.innerHTML = svg;
+      } catch (error) {
+        flowchartDiv.innerHTML = `
+          <div style="color:#b91c1c; background:#fee2e2; border:1px solid #fecaca; padding:14px; border-radius:12px;">
+            <strong>Flowchart render error:</strong><br>${error.message}
+          </div>
+        `;
       }
     }
 
-    // Reposition No button on resize to keep it safe
-    window.addEventListener("resize", () => {
-      const zoneRect = buttonsZone.getBoundingClientRect();
-      const btnW = noBtn.offsetWidth;
-      const btnH = noBtn.offsetHeight;
+    async function generateFlowchart() {
+      const input = document.getElementById("inputText").value.trim();
+      const statusText = document.getElementById("statusText");
+      const codeBox = document.getElementById("mermaidCode");
 
-      let left = parseFloat(noBtn.style.left || 0);
-      let top = parseFloat(noBtn.style.top || 0);
+      if (!input) {
+        statusText.textContent = "Please enter some theory or conditions first.";
+        return;
+      }
 
-      if (left + btnW > zoneRect.width) left = Math.max(0, zoneRect.width - btnW);
-      if (top + btnH > zoneRect.height) top = Math.max(0, zoneRect.height - btnH);
+      statusText.textContent = "Generating smart flowchart...";
+      const code = buildMermaidFromText(input);
+      codeBox.textContent = code;
+      await renderMermaid(code);
+      statusText.textContent = "Flowchart generated successfully!";
+    }
 
-      noBtn.style.left = `${left}px`;
-      noBtn.style.top = `${top}px`;
-    });
+    function clearAll() {
+      document.getElementById("inputText").value = "";
+      document.getElementById("mermaidCode").textContent = `flowchart TD
+A([Start]) --> B[Waiting for input...]
+B --> C([End])`;
+      document.getElementById("flowchart").innerHTML = "";
+      document.getElementById("statusText").textContent = "Cleared. Ready for new input.";
+    }
+
+    function loadExample() {
+      document.getElementById("inputText").value = `One night, a young man entered an old abandoned house. Inside, he found three paths.
+If he chose the first path, he would find a room full of money, but he would hear footsteps behind him.
+If he chose the second path, he would go underground and find a locked metal box with his name on it.
+If he chose the third path, he would see a glowing room with a computer that says, 'I have been waiting for you.'
+No matter which path he chose, something impossible would happen next.`;
+      document.getElementById("statusText").textContent = "Example loaded. Click Generate Flowchart.";
+    }
+
+    // Initial render
+    renderMermaid(`flowchart TD
+A([Start]) --> B[Paste your theory and click Generate]
+B --> C([End])`);
   </script>
 </body>
 </html>
