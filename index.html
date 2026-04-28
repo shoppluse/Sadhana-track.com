@@ -34,46 +34,50 @@
             flex-direction: column;
         }
         .hero h1 {
-            font-size: 48px;
+            font-size: 64px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         .hero p {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 40px;
         }
         .hero button {
             background-color: #555;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 15px 30px;
+            font-size: 24px;
             cursor: pointer;
+            border-radius: 10px;
         }
         /* About Section */
         .about {
-            padding: 100px 20px;
+            padding: 150px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .about h2 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         .about p {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 40px;
         }
         /* Skills Section */
         .skills {
-            padding: 100px 20px;
+            padding: 150px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .skills h2 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         .skills ul {
             list-style: none;
@@ -81,45 +85,48 @@
             margin: 0;
         }
         .skills li {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 10px;
         }
         /* Projects Section */
         .projects {
-            padding: 100px 20px;
+            padding: 150px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .projects h2 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         .project-card {
             background-color: #333;
-            padding: 20px;
+            padding: 30px;
             margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         .project-card h3 {
-            font-size: 24px;
+            font-size: 36px;
             margin-bottom: 10px;
+            font-weight: bold;
         }
         .project-card p {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
         /* Contact Section */
         .contact {
-            padding: 100px 20px;
+            padding: 150px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .contact h2 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
         .contact form {
             display: flex;
@@ -127,7 +134,7 @@
             align-items: center;
         }
         .contact input, .contact textarea {
-            padding: 10px;
+            padding: 15px;
             margin-bottom: 20px;
             border: none;
             border-radius: 10px;
@@ -138,9 +145,10 @@
             background-color: #555;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 15px 30px;
+            font-size: 24px;
             cursor: pointer;
+            border-radius: 10px;
         }
         /* Animations */
         .animate {
@@ -162,7 +170,7 @@
                 font-size: 36px;
             }
             .hero p {
-                font-size: 16px;
+                font-size: 18px;
             }
             .about, .skills, .projects, .contact {
                 padding: 50px 20px;
@@ -234,6 +242,36 @@
         }, { threshold: 0.5 });
         sections.forEach((section) => {
             observer.observe(section);
+        });
+        // Dark Mode
+        const darkModeButton = document.createElement('button');
+        darkModeButton.textContent = 'Dark Mode';
+        darkModeButton.style.position = 'fixed';
+        darkModeButton.style.top = '10px';
+        darkModeButton.style.right = '10px';
+        darkModeButton.style.background = '#333';
+        darkModeButton.style.color = '#fff';
+        darkModeButton.style.border = 'none';
+        darkModeButton.style.padding = '10px 20px';
+        darkModeButton.style.cursor = 'pointer';
+        document.body.appendChild(darkModeButton);
+        darkModeButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+        // Scroll to Top
+        const scrollTopButton = document.createElement('button');
+        scrollTopButton.textContent = 'Scroll to Top';
+        scrollTopButton.style.position = 'fixed';
+        scrollTopButton.style.bottom = '10px';
+        scrollTopButton.style.right = '10px';
+        scrollTopButton.style.background = '#333';
+        scrollTopButton.style.color = '#fff';
+        scrollTopButton.style.border = 'none';
+        scrollTopButton.style.padding = '10px 20px';
+        scrollTopButton.style.cursor = 'pointer';
+        document.body.appendChild(scrollTopButton);
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
