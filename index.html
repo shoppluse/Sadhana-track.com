@@ -1,628 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conditional Theory ➜ Flowchart Generator</title>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --accent: #38bdf8;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --border: rgba(255,255,255,0.08);
-      --shadow: 0 10px 30px rgba(0,0,0,0.35);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(135deg, #020617, #0f172a, #111827);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 24px;
-    }
-
-    .container {
-      max-width: 1350px;
-      margin: 0 auto;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #38bdf8, #22c55e, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: var(--muted);
-      margin-top: 10px;
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .card {
-      background: rgba(17, 24, 39, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .card h2 {
-      margin: 0 0 12px;
-      font-size: 1.1rem;
-      color: #e2e8f0;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 360px;
-      resize: vertical;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      background: #0b1220;
-      color: var(--text);
-      font-size: 15px;
-      line-height: 1.6;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-    }
-
-    .buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 12px 18px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, #38bdf8, #2563eb);
-      color: white;
-    }
-
-    .btn-success {
-      background: linear-gradient(90deg, #22c55e, #16a34a);
-      color: white;
-    }
-
-    .btn-danger {
-      background: linear-gradient(90deg, #ef4444, #dc2626);
-      color: white;
-    }
-
-    .btn-warning {
-      background: linear-gradient(90deg, #f59e0b, #d97706);
-      color: white;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-    }
-
-    .code-box {
-      background: #0b1220;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px;
-      min-height: 170px;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 13px;
-      color: #d1fae5;
-      line-height: 1.5;
-      margin-top: 10px;
-    }
-
-    .flowchart-wrapper {
-      margin-top: 14px;
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 14px;
-      overflow: auto;
-      min-height: 420px;
-      position: relative;
-    }
-
-    .tips {
-      margin-top: 16px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .status {
-      margin-top: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #93c5fd;
-    }
-
-    .download-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .note {
-      margin-top: 12px;
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 980px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      textarea {
-        min-height: 280px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2f2f2f;
+            color: #fff;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(to bottom, #333, #444);
+            background-size: 100% 300px;
+            background-position: 0% 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .hero button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .about p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        /* Skills Section */
+        .skills {
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .skills h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .skills ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skills li {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        /* Projects Section */
+        .projects {
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .projects h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .project-card {
+            background-color: #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .project-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .project-card p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .contact input, .contact textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .contact button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* Animations */
+        .animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 100vh;
+                background-size: 100% 200px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .about, .skills, .projects, .contact {
+                padding: 50px 20px;
+            }
+            .about h2, .skills h2, .projects h2, .contact h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="hero">
-      <h1>Conditional Theory ➜ Flowchart Generator</h1>
-      <p>Paste your story / condition logic and generate a downloadable visual flowchart instantly.</p>
-    </div>
-
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="card">
-        <h2>📝 Input Theory / Conditional Story</h2>
-        <textarea id="inputText" placeholder="Paste your condition theory here...">One night, a young man entered an old abandoned house. Inside, he found three paths.
-If he chose the first path, he would find a room full of money, but he would hear footsteps behind him.
-If he chose the second path, he would go underground and find a locked metal box with his name on it.
-If he chose the third path, he would see a glowing room with a computer that says, 'I have been waiting for you.'
-No matter which path he chose, something impossible would happen next.</textarea>
-
-        <div class="buttons">
-          <button class="btn-primary" onclick="generateFlowchart()">Generate Flowchart</button>
-          <button class="btn-success" onclick="loadExample()">Load Example</button>
-          <button class="btn-danger" onclick="clearAll()">Clear</button>
+    <header class="hero">
+        <h1>Welcome to my portfolio</h1>
+        <p>I'm a web developer with a passion for creating modern and responsive websites.</p>
+        <button>Learn More</button>
+    </header>
+    <section class="about animate">
+        <h2>About Me</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+    </section>
+    <section class="skills animate">
+        <h2>My Skills</h2>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Node.js</li>
+        </ul>
+    </section>
+    <section class="projects animate">
+        <h2>My Projects</h2>
+        <div class="project-card">
+            <h3>Project 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
         </div>
-
-        <div class="tips">
-          <strong>Best input format:</strong><br>
-          • Use <b>If...</b>, <b>Else...</b>, <b>If chosen...</b>, <b>No matter what...</b><br>
-          • Example: <b>If user is logged in, go to Home.</b><br>
-          • Example: <b>Else show Login page.</b><br>
-          • Example: <b>No matter what, save user history.</b>
+        <div class="project-card">
+            <h3>Project 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
         </div>
-      </div>
-
-      <!-- RIGHT -->
-      <div class="card">
-        <h2>📊 Generated Flowchart</h2>
-        <div class="status" id="statusText">Ready to generate.</div>
-
-        <h3 style="margin-top:14px; font-size: 1rem; color:#e2e8f0;">Mermaid Code</h3>
-        <div class="code-box" id="mermaidCode">flowchart TD
-A([Start]) --> B[Waiting for input...]
-B --> C([End])</div>
-
-        <div class="download-buttons">
-          <button class="btn-success" onclick="downloadSVG()">Download SVG</button>
-          <button class="btn-warning" onclick="downloadPNG()">Download PNG</button>
-          <button class="btn-primary" onclick="downloadMermaidCode()">Download Code</button>
-        </div>
-
-        <h3 style="margin-top:14px; font-size: 1rem; color:#e2e8f0;">Visual Flowchart</h3>
-        <div class="flowchart-wrapper">
-          <div id="flowchart"></div>
-        </div>
-
-        <div class="note">
-          Download options:<br>
-          • <b>SVG</b> = best quality, scalable<br>
-          • <b>PNG</b> = easy to share as image<br>
-          • <b>Code</b> = Mermaid source text
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: "default",
-      securityLevel: "loose",
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: "basis"
-      }
-    });
-
-    let currentSVG = "";
-    let currentMermaidCode = "";
-
-    function sanitizeText(text) {
-      return text
-        .replace(/"/g, "'")
-        .replace(/[<>]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-    }
-
-    function splitIntoSentences(text) {
-      return text
-        .replace(/\n+/g, " ")
-        .split(/(?<=[.!?])\s+/)
-        .map(s => s.trim())
-        .filter(Boolean);
-    }
-
-    function shorten(text, max = 60) {
-      if (text.length <= max) return text;
-      return text.slice(0, max - 3) + "...";
-    }
-
-    function extractConditionAndAction(sentence) {
-      const original = sanitizeText(sentence);
-
-      let match = original.match(/^if\s+(.+?)(?:,|\bthen\b)\s*(.+)$/i);
-      if (match) {
-        return {
-          type: "if",
-          condition: shorten(match[1].trim(), 50),
-          action: shorten(match[2].trim(), 70)
-        };
-      }
-
-      match = original.match(/^if\s+(.+?)\s+(he|she|they|user|it)\s+(would|will|can|could)\s+(.+)$/i);
-      if (match) {
-        return {
-          type: "if",
-          condition: shorten(match[1].trim(), 50),
-          action: shorten(match[4].trim(), 70)
-        };
-      }
-
-      match = original.match(/^else\s+(.+)$/i);
-      if (match) {
-        return {
-          type: "else",
-          action: shorten(match[1].trim(), 70)
-        };
-      }
-
-      match = original.match(/^no matter (which|what|who).+?(?:,|\s)(.+)$/i);
-      if (match) {
-        return {
-          type: "universal",
-          action: shorten(match[2].trim(), 70)
-        };
-      }
-
-      match = original.match(/^if\s+(.+?)\s*,?\s*(.+)$/i);
-      if (match) {
-        return {
-          type: "if",
-          condition: shorten(match[1].trim(), 50),
-          action: shorten(match[2].trim(), 70)
-        };
-      }
-
-      return {
-        type: "normal",
-        action: shorten(original, 70)
-      };
-    }
-
-    function buildMermaidFromText(text) {
-      const sentences = splitIntoSentences(text);
-
-      let mermaidLines = ["flowchart TD"];
-      let nodeCount = 0;
-
-      const nextId = () => {
-        nodeCount++;
-        return "N" + nodeCount;
-      };
-
-      const startId = nextId();
-      mermaidLines.push(`${startId}([Start])`);
-
-      let currentId = startId;
-      let lastDecisionNoTarget = null;
-      let branchEndNodes = [];
-
-      if (sentences.length > 0) {
-        const firstParsed = extractConditionAndAction(sentences[0]);
-        if (firstParsed.type === "normal") {
-          const introId = nextId();
-          mermaidLines.push(`${introId}[${firstParsed.action}]`);
-          mermaidLines.push(`${currentId} --> ${introId}`);
-          currentId = introId;
-        }
-      }
-
-      for (let i = 0; i < sentences.length; i++) {
-        const parsed = extractConditionAndAction(sentences[i]);
-
-        if (i === 0 && parsed.type === "normal") continue;
-
-        if (parsed.type === "if") {
-          const decisionId = nextId();
-          const yesId = nextId();
-
-          mermaidLines.push(`${decisionId}{${parsed.condition}?}`);
-          mermaidLines.push(`${yesId}[${parsed.action}]`);
-
-          if (lastDecisionNoTarget) {
-            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${decisionId}`);
-            lastDecisionNoTarget = null;
-          } else {
-            mermaidLines.push(`${currentId} --> ${decisionId}`);
-          }
-
-          mermaidLines.push(`${decisionId} -->|Yes| ${yesId}`);
-
-          lastDecisionNoTarget = decisionId;
-          branchEndNodes.push(yesId);
-        }
-        else if (parsed.type === "else") {
-          const elseId = nextId();
-          mermaidLines.push(`${elseId}[${parsed.action}]`);
-
-          if (lastDecisionNoTarget) {
-            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${elseId}`);
-            lastDecisionNoTarget = null;
-          } else {
-            mermaidLines.push(`${currentId} --> ${elseId}`);
-          }
-
-          branchEndNodes.push(elseId);
-        }
-        else if (parsed.type === "universal") {
-          const universalId = nextId();
-          mermaidLines.push(`${universalId}[${parsed.action}]`);
-
-          if (branchEndNodes.length > 0) {
-            branchEndNodes.forEach(id => {
-              mermaidLines.push(`${id} --> ${universalId}`);
+    </section>
+    <section class="contact animate">
+        <h2>Get in Touch</h2>
+        <form>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Message"></textarea>
+            <button>Send</button>
+        </form>
+    </section>
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-
-            if (lastDecisionNoTarget) {
-              mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${universalId}`);
-              lastDecisionNoTarget = null;
-            }
-
-            currentId = universalId;
-            branchEndNodes = [];
-          } else {
-            mermaidLines.push(`${currentId} --> ${universalId}`);
-            currentId = universalId;
-          }
-        }
-        else {
-          const normalId = nextId();
-          mermaidLines.push(`${normalId}[${parsed.action}]`);
-
-          if (lastDecisionNoTarget) {
-            mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${normalId}`);
-            lastDecisionNoTarget = null;
-          } else {
-            mermaidLines.push(`${currentId} --> ${normalId}`);
-          }
-
-          currentId = normalId;
-        }
-      }
-
-      const endId = nextId();
-
-      if (branchEndNodes.length > 0) {
-        if (lastDecisionNoTarget) {
-          mermaidLines.push(`${lastDecisionNoTarget} -->|No| ${endId}`);
-          lastDecisionNoTarget = null;
-        }
-        branchEndNodes.forEach(id => {
-          mermaidLines.push(`${id} --> ${endId}`);
         });
-      } else {
-        mermaidLines.push(`${currentId} --> ${endId}`);
-      }
-
-      mermaidLines.push(`${endId}([End])`);
-
-      return mermaidLines.join("\n");
-    }
-
-    async function renderMermaid(code) {
-      const flowchartDiv = document.getElementById("flowchart");
-      flowchartDiv.innerHTML = "";
-
-      const uniqueId = "mermaidChart_" + Date.now();
-
-      try {
-        const { svg } = await mermaid.render(uniqueId, code);
-        flowchartDiv.innerHTML = svg;
-        currentSVG = svg;
-        currentMermaidCode = code;
-      } catch (error) {
-        currentSVG = "";
-        flowchartDiv.innerHTML = `
-          <div style="color:#b91c1c; background:#fee2e2; border:1px solid #fecaca; padding:14px; border-radius:12px;">
-            <strong>Flowchart render error:</strong><br>${error.message}
-          </div>
-        `;
-      }
-    }
-
-    async function generateFlowchart() {
-      const input = document.getElementById("inputText").value.trim();
-      const statusText = document.getElementById("statusText");
-      const codeBox = document.getElementById("mermaidCode");
-
-      if (!input) {
-        statusText.textContent = "Please enter some theory or conditions first.";
-        return;
-      }
-
-      statusText.textContent = "Generating smart flowchart...";
-      const code = buildMermaidFromText(input);
-      codeBox.textContent = code;
-      await renderMermaid(code);
-      statusText.textContent = "Flowchart generated successfully! Ready to download.";
-    }
-
-    function clearAll() {
-      document.getElementById("inputText").value = "";
-      const defaultCode = `flowchart TD
-A([Start]) --> B[Waiting for input...]
-B --> C([End])`;
-      document.getElementById("mermaidCode").textContent = defaultCode;
-      document.getElementById("flowchart").innerHTML = "";
-      document.getElementById("statusText").textContent = "Cleared. Ready for new input.";
-      currentSVG = "";
-      currentMermaidCode = defaultCode;
-    }
-
-    function loadExample() {
-      document.getElementById("inputText").value = `One night, a young man entered an old abandoned house. Inside, he found three paths.
-If he chose the first path, he would find a room full of money, but he would hear footsteps behind him.
-If he chose the second path, he would go underground and find a locked metal box with his name on it.
-If he chose the third path, he would see a glowing room with a computer that says, 'I have been waiting for you.'
-No matter which path he chose, something impossible would happen next.`;
-      document.getElementById("statusText").textContent = "Example loaded. Click Generate Flowchart.";
-    }
-
-    function downloadBlob(content, fileName, type) {
-      const blob = new Blob([content], { type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    function downloadSVG() {
-      if (!currentSVG) {
-        alert("Please generate the flowchart first.");
-        return;
-      }
-      downloadBlob(currentSVG, "flowchart.svg", "image/svg+xml;charset=utf-8");
-    }
-
-    function downloadMermaidCode() {
-      if (!currentMermaidCode) {
-        alert("Please generate the flowchart first.");
-        return;
-      }
-      downloadBlob(currentMermaidCode, "flowchart-mermaid.txt", "text/plain;charset=utf-8");
-    }
-
-    function downloadPNG() {
-      if (!currentSVG) {
-        alert("Please generate the flowchart first.");
-        return;
-      }
-
-      const svgBlob = new Blob([currentSVG], { type: "image/svg+xml;charset=utf-8" });
-      const url = URL.createObjectURL(svgBlob);
-      const img = new Image();
-
-      img.onload = function () {
-        const canvas = document.createElement("canvas");
-
-        const svgElement = document.querySelector("#flowchart svg");
-        let width = svgElement ? (svgElement.viewBox.baseVal.width || svgElement.getBoundingClientRect().width || 1200) : 1200;
-        let height = svgElement ? (svgElement.viewBox.baseVal.height || svgElement.getBoundingClientRect().height || 800) : 800;
-
-        const scale = 2; // high quality
-        canvas.width = width * scale;
-        canvas.height = height * scale;
-
-        const ctx = canvas.getContext("2d");
-        ctx.scale(scale, scale);
-
-        // white background
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, width, height);
-
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob(function(blob) {
-          const pngUrl = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = pngUrl;
-          a.download = "flowchart.png";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(pngUrl);
-        }, "image/png");
-
-        URL.revokeObjectURL(url);
-      };
-
-      img.onerror = function () {
-        alert("Failed to convert SVG to PNG.");
-        URL.revokeObjectURL(url);
-      };
-
-      img.src = url;
-    }
-
-    // Initial render
-    const initialCode = `flowchart TD
-A([Start]) --> B[Paste your theory and click Generate]
-B --> C([End])`;
-
-    currentMermaidCode = initialCode;
-    renderMermaid(initialCode);
-  </script>
+        // Animations
+        const sections = document.querySelectorAll('.animate');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.5 });
+        sections.forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
