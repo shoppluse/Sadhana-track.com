@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop+</title>
     <style>
+        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,8 +14,8 @@
             background-color: #f3f3f5;
         }
         .container {
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 400px;
+            margin: 20px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 20px;
@@ -27,39 +29,27 @@
             background-color: #fff;
             border-bottom: 1px solid #ddd;
         }
-        .logo {
-            font-size: 24px;
+        .header .brand {
             font-weight: bold;
+            font-size: 18px;
         }
-        .category-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .category-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            z-index: 1;
-        }
-        .category-dropdown:hover .category-dropdown-content {
-            display: block;
-        }
-        .profile-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #ccc;
-            cursor: pointer;
-        }
-        .search-bar {
-            width: 100%;
+        .header .category-dropdown {
+            font-size: 16px;
             padding: 10px;
             border: none;
             border-radius: 10px;
             background-color: #f3f3f5;
-            font-size: 16px;
+        }
+        .header .profile-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .search-bar {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f3f3f5;
+            width: 100%;
         }
         .category-chips {
             display: flex;
@@ -68,12 +58,11 @@
             padding: 10px;
         }
         .category-chip {
-            margin: 5px;
             padding: 10px;
             border: none;
             border-radius: 10px;
             background-color: #fff;
-            font-size: 16px;
+            margin: 5px;
             cursor: pointer;
         }
         .category-chip.active {
@@ -86,93 +75,110 @@
             justify-content: center;
             padding: 10px;
         }
-        .shopping-app-icon {
-            width: 50px;
-            height: 50px;
+        .shopping-app {
+            padding: 10px;
+            border: none;
             border-radius: 10px;
             background-color: #fff;
             margin: 5px;
-            cursor: pointer;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .hero-banner {
-            position: relative;
-            width: 100%;
-            height: 200px;
+            padding: 20px;
             border-radius: 10px;
             background-image: linear-gradient(to right, #ff69b4, #ffe6cc);
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .hero-banner-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
+        .hero-banner .text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .hero-banner .image {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            background-color: #fff;
         }
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px;
+            gap: 10px;
             padding: 10px;
         }
         .product-card {
+            padding: 10px;
             border: none;
             border-radius: 10px;
             background-color: #fff;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .product-image {
-            width: 100%;
-            height: 150px;
+        .product-card .image {
+            width: 100px;
+            height: 100px;
             border-radius: 10px;
-            background-color: #f3f3f5;
+            background-color: #fff;
         }
-        .product-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .product-price {
+        .product-card .title {
             font-size: 16px;
+            font-weight: bold;
+        }
+        .product-card .price {
+            font-size: 14px;
             color: #666;
+        }
+        .product-card .discount {
+            font-size: 12px;
+            color: #f00;
         }
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
             padding: 10px;
             background-color: #fff;
             border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
-        .nav-item {
-            font-size: 16px;
+        .bottom-nav .nav-item {
+            font-size: 18px;
             cursor: pointer;
         }
-        .nav-item.active {
+        .bottom-nav .nav-item.active {
             color: #ff69b4;
+        }
+        /* SVG Icons */
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            fill: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">Shop+</div>
-            <div class="category-dropdown">
-                <div class="category-dropdown-content">
-                    <a href="#">Electronics</a>
-                    <a href="#">Fashion</a>
-                    <a href="#">Home</a>
-                </div>
-                <div>Categories <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,10" fill="#666"/></svg></div>
+            <div class="brand">Shop+</div>
+            <select class="category-dropdown">
+                <option value="all">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+            </select>
+            <div class="profile-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
             </div>
-            <div class="profile-icon"></div>
         </div>
         <input type="search" class="search-bar" placeholder="Search for phones, gadgets, fashion, etc.">
         <div class="category-chips">
@@ -186,95 +192,135 @@
             <div class="category-chip">Gadgets</div>
         </div>
         <div class="top-shopping-apps">
-            <div class="shopping-app-icon" style="background-color: #ff9900;"></div>
-            <div class="shopping-app-icon" style="background-color: #0099ff;"></div>
-            <div class="shopping-app-icon" style="background-color: #ff69b4;"></div>
-            <div class="shopping-app-icon" style="background-color: #33cc33;"></div>
-            <div class="shopping-app-icon" style="background-color: #6666ff;"></div>
-            <div class="shopping-app-icon" style="background-color: #ff9966;"></div>
-            <div class="shopping-app-icon" style="background-color: #99ff99;"></div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Amazon</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Flipkart</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Myntra</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>AJIO</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Mamaearth</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Body Cupid</span>
+            </div>
+            <div class="shopping-app">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Noise</span>
+            </div>
         </div>
         <div class="hero-banner">
-            <div class="hero-banner-content">
+            <div class="text">
                 <h2>Fashion Sale</h2>
                 <p>Stylish Kurtis starting from ₹500</p>
+            </div>
+            <div class="image">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
             </div>
         </div>
         <div class="product-grid">
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #ff69b4, #ffe6cc);"></div>
-                <div class="product-title">Product 1</div>
-                <div class="product-price">₹500</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 1</div>
+                <div class="price">₹1000</div>
+                <div class="discount">10% off</div>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #33cc33, #99ff99);"></div>
-                <div class="product-title">Product 2</div>
-                <div class="product-price">₹1000</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 2</div>
+                <div class="price">₹2000</div>
+                <div class="discount">20% off</div>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #ff9900, #ff9966);"></div>
-                <div class="product-title">Product 3</div>
-                <div class="product-price">₹1500</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 3</div>
+                <div class="price">₹3000</div>
+                <div class="discount">30% off</div>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #0099ff, #66cccc);"></div>
-                <div class="product-title">Product 4</div>
-                <div class="product-price">₹2000</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 4</div>
+                <div class="price">₹4000</div>
+                <div class="discount">40% off</div>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #ff69b4, #ffe6cc);"></div>
-                <div class="product-title">Product 5</div>
-                <div class="product-price">₹2500</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 5</div>
+                <div class="price">₹5000</div>
+                <div class="discount">50% off</div>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #33cc33, #99ff99);"></div>
-                <div class="product-title">Product 6</div>
-                <div class="product-price">₹3000</div>
-            </div>
-            <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #ff9900, #ff9966);"></div>
-                <div class="product-title">Product 7</div>
-                <div class="product-price">₹3500</div>
-            </div>
-            <div class="product-card">
-                <div class="product-image" style="background-image: linear-gradient(to right, #0099ff, #66cccc);"></div>
-                <div class="product-title">Product 8</div>
-                <div class="product-price">₹4000</div>
+                <div class="image">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="title">Product 6</div>
+                <div class="price">₹6000</div>
+                <div class="discount">60% off</div>
             </div>
         </div>
-    </div>
-    <div class="bottom-nav">
-        <div class="nav-item active">Home</div>
-        <div class="nav-item">Search</div>
-        <div class="nav-item">Wishlist</div>
-        <div class="nav-item">Cart</div>
-        <div class="nav-item">Profile</div>
-    </div>
-    <script>
-        const categoryChips = document.querySelectorAll('.category-chip');
-        categoryChips.forEach((chip) => {
-            chip.addEventListener('click', () => {
-                categoryChips.forEach((otherChip) => {
-                    otherChip.classList.remove('active');
-                });
-                chip.classList.add('active');
-            });
-        });
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                navItems.forEach((otherItem) => {
-                    otherItem.classList.remove('active');
-                });
-                item.classList.add('active');
-            });
-        });
-        const heroBanner = document.querySelector('.hero-banner');
-        let bannerIndex = 0;
-        setInterval(() => {
-            bannerIndex = (bannerIndex + 1) % 3;
-            heroBanner.style.backgroundImage = `linear-gradient(to right, ${['#ff69b4', '#33cc33', '#ff9900'][bannerIndex]}, ${['#ffe6cc', '#99ff99', '#ff9966'][bannerIndex]})`;
-        }, 3000);
-    </script>
-</body>
-</html>
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span>Search</span>
+            </div>
+            <div class="nav-item">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21
