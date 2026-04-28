@@ -3,276 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio</title>
+    <title>Shop+</title>
     <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #2f2f2f;
-            color: #fff;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        a {
-            text-decoration: none;
-            color: #fff;
-        }
-        /* Hero Section */
-        .hero {
-            background-image: linear-gradient(to bottom, #333, #444);
-            background-size: 100% 300px;
-            background-position: 0% 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .hero h1 {
-            font-size: 64px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .hero p {
-            font-size: 24px;
-            margin-bottom: 40px;
-        }
-        .hero button {
-            background-color: #555;
-            color: #fff;
-            border: none;
-            padding: 15px 30px;
-            font-size: 24px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-        /* About Section */
-        .about {
-            padding: 150px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .about h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .about p {
-            font-size: 24px;
-            margin-bottom: 40px;
-        }
-        /* Skills Section */
-        .skills {
-            padding: 150px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .skills h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .skills ul {
-            list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
+            background-color: #f3f3f5;
         }
-        .skills li {
-            font-size: 24px;
-            margin-bottom: 10px;
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        /* Projects Section */
-        .projects {
-            padding: 150px 20px;
+        .header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
         }
-        .projects h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
+        .logo {
+            font-size: 24px;
             font-weight: bold;
         }
-        .project-card {
-            background-color: #333;
-            padding: 30px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        .category-dropdown {
+            position: relative;
+            display: inline-block;
         }
-        .project-card h3 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            font-weight: bold;
+        .category-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            z-index: 1;
         }
-        .project-card p {
-            font-size: 24px;
-            margin-bottom: 20px;
+        .category-dropdown:hover .category-dropdown-content {
+            display: block;
         }
-        /* Contact Section */
-        .contact {
-            padding: 150px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .contact h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .contact form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .contact input, .contact textarea {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-        }
-        .contact button {
-            background-color: #555;
-            color: #fff;
-            border: none;
-            padding: 15px 30px;
-            font-size: 24px;
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ccc;
             cursor: pointer;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            border: none;
             border-radius: 10px;
+            background-color: #f3f3f5;
+            font-size: 16px;
         }
-        /* Animations */
-        .animate {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.5s, transform 0.5s;
+        .category-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
         }
-        .animate.show {
-            opacity: 1;
-            transform: translateY(0);
+        .category-chip {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #fff;
+            font-size: 16px;
+            cursor: pointer;
         }
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                height: 100vh;
-                background-size: 100% 200px;
-            }
-            .hero h1 {
-                font-size: 36px;
-            }
-            .hero p {
-                font-size: 18px;
-            }
-            .about, .skills, .projects, .contact {
-                padding: 50px 20px;
-            }
-            .about h2, .skills h2, .projects h2, .contact h2 {
-                font-size: 24px;
-            }
+        .category-chip.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .top-shopping-apps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+        }
+        .shopping-app-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #fff;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            background-image: linear-gradient(to right, #ff69b4, #ffe6cc);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hero-banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+        }
+        .product-card {
+            border: none;
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            background-color: #f3f3f5;
+        }
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 16px;
+            color: #666;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+        .nav-item {
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #ff69b4;
         }
     </style>
 </head>
 <body>
-    <header class="hero">
-        <h1>Welcome to my portfolio</h1>
-        <p>I'm a web developer with a passion for creating modern and responsive websites.</p>
-        <button>Learn More</button>
-    </header>
-    <section class="about animate">
-        <h2>About Me</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
-    </section>
-    <section class="skills animate">
-        <h2>My Skills</h2>
-        <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>Node.js</li>
-        </ul>
-    </section>
-    <section class="projects animate">
-        <h2>My Projects</h2>
-        <div class="project-card">
-            <h3>Project 1</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Shop+</div>
+            <div class="category-dropdown">
+                <div class="category-dropdown-content">
+                    <a href="#">Electronics</a>
+                    <a href="#">Fashion</a>
+                    <a href="#">Home</a>
+                </div>
+                <div>Categories <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,10" fill="#666"/></svg></div>
+            </div>
+            <div class="profile-icon"></div>
         </div>
-        <div class="project-card">
-            <h3>Project 2</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+        <input type="search" class="search-bar" placeholder="Search for phones, gadgets, fashion, etc.">
+        <div class="category-chips">
+            <div class="category-chip active">Overall</div>
+            <div class="category-chip">Electronics</div>
+            <div class="category-chip">Fashion</div>
+            <div class="category-chip">Home</div>
+            <div class="category-chip">Accessories</div>
+            <div class="category-chip">Sports</div>
+            <div class="category-chip">Beauty</div>
+            <div class="category-chip">Gadgets</div>
         </div>
-    </section>
-    <section class="contact animate">
-        <h2>Get in Touch</h2>
-        <form>
-            <input type="text" placeholder="Name">
-            <input type="email" placeholder="Email">
-            <textarea placeholder="Message"></textarea>
-            <button>Send</button>
-        </form>
-    </section>
+        <div class="top-shopping-apps">
+            <div class="shopping-app-icon" style="background-color: #ff9900;"></div>
+            <div class="shopping-app-icon" style="background-color: #0099ff;"></div>
+            <div class="shopping-app-icon" style="background-color: #ff69b4;"></div>
+            <div class="shopping-app-icon" style="background-color: #33cc33;"></div>
+            <div class="shopping-app-icon" style="background-color: #6666ff;"></div>
+            <div class="shopping-app-icon" style="background-color: #ff9966;"></div>
+            <div class="shopping-app-icon" style="background-color: #99ff99;"></div>
+        </div>
+        <div class="hero-banner">
+            <div class="hero-banner-content">
+                <h2>Fashion Sale</h2>
+                <p>Stylish Kurtis starting from ₹500</p>
+            </div>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #ff69b4, #ffe6cc);"></div>
+                <div class="product-title">Product 1</div>
+                <div class="product-price">₹500</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #33cc33, #99ff99);"></div>
+                <div class="product-title">Product 2</div>
+                <div class="product-price">₹1000</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #ff9900, #ff9966);"></div>
+                <div class="product-title">Product 3</div>
+                <div class="product-price">₹1500</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #0099ff, #66cccc);"></div>
+                <div class="product-title">Product 4</div>
+                <div class="product-price">₹2000</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #ff69b4, #ffe6cc);"></div>
+                <div class="product-title">Product 5</div>
+                <div class="product-price">₹2500</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #33cc33, #99ff99);"></div>
+                <div class="product-title">Product 6</div>
+                <div class="product-price">₹3000</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #ff9900, #ff9966);"></div>
+                <div class="product-title">Product 7</div>
+                <div class="product-price">₹3500</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: linear-gradient(to right, #0099ff, #66cccc);"></div>
+                <div class="product-title">Product 8</div>
+                <div class="product-price">₹4000</div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div class="nav-item active">Home</div>
+        <div class="nav-item">Search</div>
+        <div class="nav-item">Wishlist</div>
+        <div class="nav-item">Cart</div>
+        <div class="nav-item">Profile</div>
+    </div>
     <script>
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        const categoryChips = document.querySelectorAll('.category-chip');
+        categoryChips.forEach((chip) => {
+            chip.addEventListener('click', () => {
+                categoryChips.forEach((otherChip) => {
+                    otherChip.classList.remove('active');
                 });
+                chip.classList.add('active');
             });
         });
-        // Animations
-        const sections = document.querySelectorAll('.animate');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                navItems.forEach((otherItem) => {
+                    otherItem.classList.remove('active');
+                });
+                item.classList.add('active');
             });
-        }, { threshold: 0.5 });
-        sections.forEach((section) => {
-            observer.observe(section);
         });
-        // Dark Mode
-        const darkModeButton = document.createElement('button');
-        darkModeButton.textContent = 'Dark Mode';
-        darkModeButton.style.position = 'fixed';
-        darkModeButton.style.top = '10px';
-        darkModeButton.style.right = '10px';
-        darkModeButton.style.background = '#333';
-        darkModeButton.style.color = '#fff';
-        darkModeButton.style.border = 'none';
-        darkModeButton.style.padding = '10px 20px';
-        darkModeButton.style.cursor = 'pointer';
-        document.body.appendChild(darkModeButton);
-        darkModeButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-        });
-        // Scroll to Top
-        const scrollTopButton = document.createElement('button');
-        scrollTopButton.textContent = 'Scroll to Top';
-        scrollTopButton.style.position = 'fixed';
-        scrollTopButton.style.bottom = '10px';
-        scrollTopButton.style.right = '10px';
-        scrollTopButton.style.background = '#333';
-        scrollTopButton.style.color = '#fff';
-        scrollTopButton.style.border = 'none';
-        scrollTopButton.style.padding = '10px 20px';
-        scrollTopButton.style.cursor = 'pointer';
-        document.body.appendChild(scrollTopButton);
-        scrollTopButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        const heroBanner = document.querySelector('.hero-banner');
+        let bannerIndex = 0;
+        setInterval(() => {
+            bannerIndex = (bannerIndex + 1) % 3;
+            heroBanner.style.backgroundImage = `linear-gradient(to right, ${['#ff69b4', '#33cc33', '#ff9900'][bannerIndex]}, ${['#ffe6cc', '#99ff99', '#ff9966'][bannerIndex]})`;
+        }, 3000);
     </script>
 </body>
 </html>
