@@ -191,6 +191,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.3);}
         </div>
         <div class="inputs-grid" id="inputsGrid"></div>
       </div>
+      
       <div class="options-row">
         <div class="field">
           <div class="lbl">QR Color</div>
@@ -209,6 +210,14 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.3);}
           </div>
         </div>
         <div class="field">
+          <div class="lbl">Border Color</div>
+          <div class="color-wrap" id="borderWrap">
+            <div class="swatch" id="borderSwatch"></div>
+            <span class="hex-val" id="borderHex">#FFFFFF</span>
+            <input type="color" id="borderPicker" value="#ffffff"/>
+          </div>
+        </div>
+        <div class="field">
           <div class="lbl">Error Correction</div>
           <select class="sel" id="ecLevel">
             <option value="L">L — 7%</option>
@@ -218,13 +227,21 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.3);}
           </select>
         </div>
         <div class="size-field">
-          <div class="lbl">Size — <span id="sizeDisp">220</span>px</div>
+          <div class="lbl">QR Matrix — <span id="sizeDisp">220</span>px</div>
           <div class="size-row">
             <input type="range" id="sizeSlider" min="120" max="500" value="220" step="10"/>
             <span class="size-num" id="sizeNum">220</span>
           </div>
         </div>
+        <div class="size-field">
+          <div class="lbl">Border — <span id="borderSizeDisp">10</span>px</div>
+          <div class="size-row">
+            <input type="range" id="borderSizeSlider" min="0" max="40" value="10" step="2"/>
+            <span class="size-num" id="borderSizeNum">10</span>
+          </div>
+        </div>
       </div>
+      
       <button class="gen-btn" id="genBtn">⬡ Generate All QR Codes</button>
     </div>
 
@@ -272,12 +289,12 @@ for (let i = 0; i < N; i++) {
   inputsGrid.appendChild(row);
 }
 
-const fgPicker=document.getElementById("fgPicker"),bgPicker=document.getElementById("bgPicker");
-const fgSwatch=document.getElementById("fgSwatch"),bgSwatch=document.getElementById("bgSwatch");
-const fgHex=document.getElementById("fgHex"),bgHex=document.getElementById("bgHex");
-const fgWrap=document.getElementById("fgWrap"),bgWrap=document.getElementById("bgWrap");
-const ecLevel=document.getElementById("ecLevel"),sizeSlider=document.getElementById("sizeSlider");
-const sizeDisp=document.getElementById("sizeDisp"),sizeNum=document.getElementById("sizeNum");
+const fgPicker=document.getElementById("fgPicker"),bgPicker=document.getElementById("bgPicker"),borderPicker=document.getElementById("borderPicker");
+const fgSwatch=document.getElementById("fgSwatch"),bgSwatch=document.getElementById("bgSwatch"),borderSwatch=document.getElementById("borderSwatch");
+const fgHex=document.getElementById("fgHex"),bgHex=document.getElementById("bgHex"),borderHex=document.getElementById("borderHex");
+const fgWrap=document.getElementById("fgWrap"),bgWrap=document.getElementById("bgWrap"),borderWrap=document.getElementById("borderWrap");
+const ecLevel=document.getElementById("ecLevel"),sizeSlider=document.getElementById("sizeSlider"),borderSizeSlider=document.getElementById("borderSizeSlider");
+const sizeDisp=document.getElementById("sizeDisp"),sizeNum=document.getElementById("sizeNum"),borderSizeDisp=document.getElementById("borderSizeDisp"),borderSizeNum=document.getElementById("borderSizeNum");
 const genBtn=document.getElementById("genBtn"),results=document.getElementById("results");
 const qrGrid=document.getElementById("qrGrid"),resultsTitle=document.getElementById("resultsTitle");
 const dlAllBtn=document.getElementById("dlAllBtn"),emptyHint=document.getElementById("emptyHint");
@@ -289,15 +306,23 @@ const dropzoneText = document.getElementById("dropzoneText");
 let generatedCanvases=[];
 
 function syncColor(w){
-  const p=w==="fg"?fgPicker:bgPicker,s=w==="fg"?fgSwatch:bgSwatch,h=w==="fg"?fgHex:bgHex;
+  let p, s, h;
+  if(w==="fg") { p=fgPicker; s=fgSwatch; h=fgHex; }
+  else if(w==="bg") { p=bgPicker; s=bgSwatch; h=bgHex; }
+  else { p=borderPicker; s=borderSwatch; h=borderHex; }
   s.style.background=p.value;h.textContent=p.value.toUpperCase();
 }
-syncColor("fg");syncColor("bg");
+syncColor("fg");syncColor("bg");syncColor("border");
+
 fgWrap.addEventListener("click",()=>fgPicker.click());
 bgWrap.addEventListener("click",()=>bgPicker.click());
+borderWrap.addEventListener("click",()=>borderPicker.click());
 fgPicker.addEventListener("input",()=>syncColor("fg"));
 bgPicker.addEventListener("input",()=>syncColor("bg"));
+borderPicker.addEventListener("input",()=>syncColor("border"));
+
 sizeSlider.addEventListener("input",()=>{sizeDisp.textContent=sizeSlider.value;sizeNum.textContent=sizeSlider.value;});
+borderSizeSlider.addEventListener("input",()=>{borderSizeDisp.textContent=borderSizeSlider.value;borderSizeNum.textContent=borderSizeSlider.value;});
 document.addEventListener("keydown",e=>{if(e.key==="Enter")generateAll();});
 
 /* --------------------------------------------------
@@ -316,7 +341,7 @@ fileInput.addEventListener("change", (e) => {
 
 async function handleBatchFiles(fileList) {
   if(IMGBB_API_KEY === "YOUR_IMGBB_API_KEY_HERE" || !IMGBB_API_KEY) {
-    alert("Please add your free ImgBB API key to line 143 of your HTML file script code first!");
+    alert("Please add your free ImgBB API key to line 157 of your HTML file script code first!");
     return;
   }
 
@@ -376,9 +401,9 @@ function uploadToCloud(file) {
 }
 
 /* --------------------------------------------------
-   CORE GENERATION LOGIC (WITH EMBEDDED NAME LABEL)
+   CORE GENERATION LOGIC (WITH BORDER & TEXT ENGINES)
 -------------------------------------------------- */
-function renderQRToCanvas(text, labelName, size, fg, bg, ec){
+function renderQRToCanvas(text, labelName, size, borderSize, fg, bg, borderColor, ec){
   return new Promise((resolve,reject)=>{
     const tmp=document.createElement("div");
     tmp.style.cssText="position:fixed;left:-9999px;top:0;visibility:hidden;";
@@ -390,30 +415,39 @@ function renderQRToCanvas(text, labelName, size, fg, bg, ec){
     if(!gen){document.body.removeChild(tmp);reject(new Error("No output"));return;}
     
     const draw=()=>{
-      // Add extra vertical padding below the QR matrix block to cleanly bake text inside the downloaded image asset
+      // Room below the inner asset container zone for the dynamic name label
       const textPadding = labelName ? Math.max(40, Math.round(size * 0.16)) : 0;
+      
       const canvas=document.createElement("canvas");
-      canvas.width=size;
-      canvas.height=size + textPadding;
+      // Total size = inner matrix width + double border thickness edges
+      canvas.width = size + (borderSize * 2);
+      canvas.height = size + textPadding + (borderSize * 2);
       
       const ctx=canvas.getContext("2d");
       
-      // Paint Background Canvas Layer
-      ctx.fillStyle = bg;
+      // 1. Fill base with user specified custom outer border color layer
+      ctx.fillStyle = borderColor;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Paste Matrix System Core
-      ctx.drawImage(gen, 0, 0, size, size);
+      // 2. Fill core block zone beneath matrix and labels with QR inner background color
+      ctx.fillStyle = bg;
+      ctx.fillRect(borderSize, borderSize, size, size + textPadding);
       
-      // Render Embedded Label Text
+      // 3. Draw the raw QR Code pattern inside the calculated frame
+      ctx.drawImage(gen, borderSize, borderSize, size, size);
+      
+      // 4. Draw labels cleanly below the matrix zone inside inner container boundaries
       if (labelName) {
         ctx.fillStyle = fg;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        // Dynamic scaling size adjustments
         const fontSize = Math.max(12, Math.round(size * 0.055));
         ctx.font = `bold ${fontSize}px 'Space Mono', monospace, sans-serif`;
-        ctx.fillText(labelName, size / 2, size + (textPadding / 2));
+        
+        // Horizontal middle of the QR matrix block, vertically centered inside the text padding strip area
+        const textX = borderSize + (size / 2);
+        const textY = borderSize + size + (textPadding / 2);
+        ctx.fillText(labelName, textX, textY);
       }
       
       document.body.removeChild(tmp);
@@ -431,7 +465,6 @@ async function generateAll(){
   const inputs=[...document.querySelectorAll(".qr-inp")];
   const nameInputs=[...document.querySelectorAll(".qr-name")];
   
-  // Package structural data bindings
   const dataset = [];
   inputs.forEach((inp, idx) => {
     const val = inp.value.trim();
@@ -448,7 +481,13 @@ async function generateAll(){
     setTimeout(()=>{inputs[0].style.borderColor="";},600);return;
   }
   
-  const size=parseInt(sizeSlider.value),fg=fgPicker.value,bg=bgPicker.value,ec=ecLevel.value;
+  const size=parseInt(sizeSlider.value);
+  const borderSize=parseInt(borderSizeSlider.value);
+  const fg=fgPicker.value;
+  const bg=bgPicker.value;
+  const borderColor=borderPicker.value;
+  const ec=ecLevel.value;
+
   genBtn.disabled=true;
   genBtn.textContent=`⟳ Generating ${dataset.length} QR code${dataset.length>1?"s":""}…`;
   qrGrid.innerHTML="";generatedCanvases=[];results.classList.remove("show");
@@ -459,14 +498,12 @@ async function generateAll(){
   try{
     for(let i=0; i<dataset.length; i++){
       const itemData = dataset[i];
-      // Generate composite layout
-      const canvas = await renderQRToCanvas(itemData.text, itemData.name, size, fg, bg, ec);
+      const canvas = await renderQRToCanvas(itemData.text, itemData.name, size, borderSize, fg, bg, borderColor, ec);
       generatedCanvases.push({canvas, text: itemData.text, name: itemData.name});
       
       const item=document.createElement("div");item.className="qr-item";
       const num=document.createElement("div");num.className="qr-num";num.textContent=`#${i+1}`;
       
-      // Setup HTML labels matching custom name settings
       const lbl=document.createElement("div");lbl.className="qr-label";
       lbl.textContent = itemData.name ? itemData.name : `QR #${i+1}`;
       
